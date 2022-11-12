@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 public class Application {
     public static void main(String[] args) {
         ListOfStudents listOfStudents = new ListOfStudents();
-        for(Map.Entry<Integer,Student> entry : listOfStudents.studentMap.entrySet()){
-            if(entry.getValue().getStudentClassNumber().equals("4B")&& entry.getValue().getSex().equals("M")){
-                System.out.println(entry);
+        for(Student student : listOfStudents.listOfStudents()){
+            if(student.getStudentClassNumber().equals("4B") && student.getSex().equals("M")){
+                System.out.println(student);
             }
         }
     }
