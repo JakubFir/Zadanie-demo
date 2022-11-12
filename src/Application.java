@@ -84,12 +84,12 @@ class ListOfStudents extends Student{
     private List<Student> students;
     public List<Student> listOfStudents() {
         students = new ArrayList<>();
-        students.add(new Student(1,"jakub", "firlejczyk", "4A", 4, "M"));
-        students.add(new Student(2,"jakub", "firlejczyk", "4B", 4, "M"));
-        students.add(new Student(3,"jakub", "firlejczyk", "4E", 4, "M"));
-        students.add(new Student(4,"jakub", "firlejczyeek", "4C", 4, "M"));
-        students.add(new Student(5,"jakub", "firlejczyeek", "4B", 4, "M"));
-        students.add(new Student(6,"jakub", "firlejczyeek", "4B", 4, "F"));
+        students.add(new Student(1,"jakub", "firlejczyk", "4A", 1, "M"));
+        students.add(new Student(2,"Korneli", "Szymkowiak", "4B", 3, "M"));
+        students.add(new Student(3,"Joachim", "Piwowarczyk", "4E", 4, "M"));
+        students.add(new Student(4,"Laurencjusz", "Koza", "4C", 2, "M"));
+        students.add(new Student(5,"Maria", "Sitek", "4B", 5, "F"));
+        students.add(new Student(6,"Anastazja", "Zwoliński", "4B", 6, "F"));
 
         return students;
     }
