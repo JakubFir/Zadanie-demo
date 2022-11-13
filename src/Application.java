@@ -8,6 +8,7 @@ public class Application {
 
 
 
+
     }
 }
 
@@ -135,7 +136,7 @@ class Student {
                 studentMap.put(student.studentClassNumber, sortingStudents(classNumber));
         }
         for (Map.Entry<String, List<Student>> entry : studentMap.entrySet()) {
-            System.out.println(entry.getValue() + " ");
+            System.out.println("Students in class " + classNumber + entry.getValue() + " ");
 
         }
         return studentMap;
