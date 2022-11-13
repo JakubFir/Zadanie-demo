@@ -5,10 +5,6 @@ public class Application {
         Student student = new Student();
         student.getStudentsByClass("4A");
         student.sortedStudentsByClass();
-
-
-
-
     }
 }
 
@@ -66,22 +62,15 @@ class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return studentId == student.studentId &&
-                studentLogNumber == student.studentLogNumber &&
-                sex == student.sex &&
-                Objects.equals(name, student.name) &&
-                Objects.equals(lastName, student.lastName) &&
-                Objects.equals(studentClassNumber, student.studentClassNumber);
+        return studentId == student.studentId && studentLogNumber == student.studentLogNumber && sex == student.sex && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(studentClassNumber, student.studentClassNumber);
     }
 
     @Override
     public int hashCode() {
         return Integer.parseInt(studentId);
-
     }
 
     private List<Student> students;
-
     public List<Student> listOfStudents() {
         students = new ArrayList<>();
         students.add(new Student("1", "jakub", "firlejczyk", "4A", 1, "M"));
@@ -92,9 +81,8 @@ class Student {
         students.add(new Student("6", "Anastazja", "Zwoliński", "4B", 6, "F"));
         return students;
     }
-
     public List<Student> sortingStudents(String classNumber) {
-        List <Student> sortedStudentsByClass = new ArrayList<>();
+        List<Student> sortedStudentsByClass = new ArrayList<>();
         for (Student student : listOfStudents()) {
             if (classNumber.equals(student.getStudentClassNumber())) {
                 sortedStudentsByClass.add(student);
@@ -102,7 +90,6 @@ class Student {
         }
         return sortedStudentsByClass;
     }
-
     public List<Student> getAllMaleStudentsFromClass4B() {
         for (Student student : listOfStudents()) {
             if (student.getStudentClassNumber().equals("4B") && student.getSex().equals("M")) {
@@ -111,7 +98,6 @@ class Student {
         }
         return students;
     }
-
     public Map<String, List<Student>> sortedStudentsByClass() {
         double average = 0;
         double sum = 0;
@@ -121,10 +107,10 @@ class Student {
             sum++;
         }
         for (Map.Entry<String, List<Student>> entry : sortedStudents.entrySet()) {
-            System.out.println("class: " +   entry.getKey() + "\n" + " " + entry.getValue() + " ");
+            System.out.println("class: " + entry.getKey() + "\n" + " " + entry.getValue() + " ");
 
         }
-        average = sum/sortedStudents.size();
+        average = sum / sortedStudents.size();
         System.out.println("Average students per class :" + average);
         return sortedStudents;
     }
