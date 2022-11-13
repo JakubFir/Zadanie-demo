@@ -3,7 +3,7 @@ import java.util.*;
 public class Application {
     public static void main(String[] args) {
         Student student = new Student();
-        student.sortingStudents("4A");
+        student.getStudentsByClass("4A");
         student.sortedStudentsByClass();
 
 
