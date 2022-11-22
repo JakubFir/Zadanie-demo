@@ -10,16 +10,20 @@ public class Application {
         students.add(new Student("5", "Maria", "Sitek", "4B", 5, "F"));
         students.add(new Student("6", "Anastazja", "Zwoliński", "4B", 6, "F"));
 
-        Student student = new Student();
+        Map<String, Student> studentMap = new HashMap<>();
+        for(Student student : students) {
+            studentMap.put(student.getStudentId(), student);
+        }
         StudentUtils studentUtils = new StudentUtils();
+        studentMap.put("7",new Student("3", "Korneli", "Szymkowiak", "4F", 3, "M"));
 
-        studentUtils.studentsInClass(students, "4B");
-        System.out.println(" ");
-        studentUtils.averageStudentsPerClass(studentUtils.studentsSortedByClass(students));
-        System.out.println(" ");
-        studentUtils.studentsSortedByClass(students);
-        studentUtils.getStudentsByClass(students, "4B");
-        studentUtils.searchStudentsBySexAndClass(students,"4B","F");
+        if(!studentUtils.getStudentsByClass(studentMap,"4F").isEmpty()) {
+            System.out.println("Students in class " + studentUtils.getStudentsByClass(studentMap,"4F"));
+        }else {
+            System.out.println("class does not exists");
+        }
+       studentUtils.studentsSortedByClass(studentMap);
+
 
     }
 }
@@ -81,10 +85,7 @@ class Student {
         return studentId == student.studentId && studentLogNumber == student.studentLogNumber && sex == student.sex && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(studentClassNumber, student.studentClassNumber);
     }
 
-    @Override
-    public int hashCode() {
-        return Integer.parseInt(studentId);
-    }
+
 }
 class StudentUtils{
     Student student = new Student();
@@ -110,21 +111,21 @@ class StudentUtils{
         return searchedStudents;
     }
 
-    public List<Student> sortingStudentsByClass(List<Student>students, String classNumber) {
+    public List<Student> sortingStudentsByClass(Map<String, Student> students, String classNumber) {
         List<Student> sortedStudentsByClass = new ArrayList<>();
-        for (Student student : students) {
-            if (classNumber.equals(student.getStudentClassNumber())) {
-                sortedStudentsByClass.add(student);
+       for(Map.Entry<String,Student> entry : students.entrySet()) {
+            if (classNumber.equals(entry.getValue().getStudentClassNumber())) {
+                sortedStudentsByClass.add(entry.getValue());
             }
         }
         return sortedStudentsByClass;
     }
 
-    public Map<String, List<Student>> studentsSortedByClass(List<Student> students) {
+    public Map<String, List<Student>> studentsSortedByClass(Map<String, Student> students) {
         Map<String, List<Student>> sortedStudents = new HashMap<>();
-        for (Student student : students) {
-            if(!sortedStudents.containsKey(student.getStudentClassNumber())) {
-                sortedStudents.put(student.getStudentClassNumber(), sortingStudentsByClass(students, student.getStudentClassNumber()));
+        for(Map.Entry<String,Student> entry : students.entrySet()) {
+            if(!sortedStudents.containsKey(entry.getValue().getStudentClassNumber())) {
+                sortedStudents.put(entry.getValue().getStudentClassNumber(), sortingStudentsByClass(students, entry.getValue().getStudentClassNumber()));
             }
         }
         for (Map.Entry<String, List<Student>> entry : sortedStudents.entrySet()) {
@@ -133,23 +134,18 @@ class StudentUtils{
         return sortedStudents;
     }
 
-    public Map<String, List<Student>> getStudentsByClass(List<Student>students, String classNumber) {
-        Map<String, List<Student>> studentMap = new HashMap<>();
-        for (Student student : students) {
-            if (student.getStudentClassNumber().equals(classNumber))
-                studentMap.put(student.getStudentClassNumber(), sortingStudentsByClass(students, classNumber));
+    public List<Student> getStudentsByClass(Map<String, Student> students, String classNumber) {
+        List<Student> studentsInClass = new ArrayList<>();
+        for (Map.Entry<String, Student> entry : students.entrySet()) {
+            if (entry.getValue().getStudentClassNumber().equals(classNumber))
+                studentsInClass.add(entry.getValue());
         }
-        if(!studentMap.isEmpty()) {
-            System.out.println("Students in class " + studentMap);
-        }else {
-            System.out.println("class " + classNumber + " does not exists");
-        }
-        return studentMap;
+        return studentsInClass;
     }
     public double averageStudentsPerClass(Map<String,List<Student>> studentMap){
         double students =0;
         double numbersOfClass =0;
-        double average =0;
+        double average;
         for (Map.Entry<String, List<Student>> entry : studentMap.entrySet()) {
             for(Student value : entry.getValue()){
                 students++;
