@@ -4,9 +4,9 @@ public class Application {
     public static void main(String[] args) {
          List<Student> students = new ArrayList<>();
         students.add(new Student("1", "jakub", "firlejczyk", "4A", 1, "M"));
-        students.add(new Student("2", "Korneli", "Szymkowiak", "4B", 3, "M"));
-        students.add(new Student("3", "Joachim", "Piwowarczyk", "4E", 4, "M"));
-        students.add(new Student("4", "Laurencjusz", "Koza", "4C", 2, "M"));
+        students.add(new Student("2", "Korneli", "Szymkowiak", "4A", 3, "M"));
+        students.add(new Student("3", "Joachim", "Piwowarczyk", "4A", 4, "M"));
+        students.add(new Student("4", "Laurencjusz", "Koza", "4A", 2, "M"));
         students.add(new Student("5", "Maria", "Sitek", "4B", 5, "F"));
         students.add(new Student("6", "Anastazja", "Zwoliński", "4B", 6, "F"));
 
@@ -14,8 +14,9 @@ public class Application {
         for(Student student : students) {
             studentMap.put(student.getStudentId(), student);
         }
+
         StudentUtils studentUtils = new StudentUtils();
-        studentMap.put("7",new Student("3", "Korneli", "Szymkowiak", "4F", 3, "M"));
+        studentMap.put("7",new Student("3", "Korneli", "Szymkowiak", "4B", 3, "M"));
 
         if(!studentUtils.getStudentsByClass(studentMap,"4F").isEmpty()) {
             System.out.println("Students in class " + studentUtils.getStudentsByClass(studentMap,"4F"));
@@ -23,6 +24,7 @@ public class Application {
             System.out.println("class does not exists");
         }
        studentUtils.studentsSortedByClass(studentMap);
+        studentUtils.averageStudentsPerClass(studentMap);
 
 
     }
@@ -142,16 +144,22 @@ class StudentUtils{
         }
         return studentsInClass;
     }
-    public double averageStudentsPerClass(Map<String,List<Student>> studentMap){
+    public double averageStudentsPerClass(Map<String,Student> studentMap){
         double students =0;
         double numbersOfClass =0;
         double average;
-        for (Map.Entry<String, List<Student>> entry : studentMap.entrySet()) {
-            for(Student value : entry.getValue()){
-                students++;
-            }
-            numbersOfClass++;
-        }
+        String classNumber = "";
+     for (Map.Entry<String, Student> entry : studentMap.entrySet()) {
+         students++;
+         if(entry.getValue().getStudentClassNumber() != classNumber){
+             numbersOfClass++;
+         }
+         classNumber = entry.getValue().getStudentClassNumber();
+     }
+
+        System.out.println(numbersOfClass);
+        System.out.println(students);
+
         average = students/numbersOfClass;
         System.out.println(average);
         return average;
