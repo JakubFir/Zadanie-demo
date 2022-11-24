@@ -2,11 +2,11 @@ import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
-         List<Student> students = new ArrayList<>();
+        List<Student> students = new ArrayList<>();
         students.add(new Student("1", "jakub", "firlejczyk", "4A", 1, "M"));
         students.add(new Student("2", "Korneli", "Szymkowiak", "4A", 3, "M"));
         students.add(new Student("3", "Joachim", "Piwowarczyk", "4A", 4, "M"));
-        students.add(new Student("4", "Laurencjusz", "Koza", "4A", 2, "M"));
+        students.add(new Student("4", "Laurencjusz", "Koza", "4B", 2, "M"));
         students.add(new Student("5", "Maria", "Sitek", "4B", 5, "F"));
         students.add(new Student("6", "Anastazja", "Zwoliński", "4B", 6, "F"));
 
@@ -14,22 +14,30 @@ public class Application {
         for(Student student : students) {
             studentMap.put(student.getStudentId(), student);
         }
-
         StudentUtils studentUtils = new StudentUtils();
-        studentMap.put("7",new Student("3", "Korneli", "Szymkowiak", "4B", 3, "M"));
 
-        if(!studentUtils.getStudentsByClass(studentMap,"4F").isEmpty()) {
-            System.out.println("Students in class " + studentUtils.getStudentsByClass(studentMap,"4F"));
+        List<Student> studentsByClass = studentUtils.getStudentsByClass(studentMap,"4A");
+        if(!studentsByClass.isEmpty()) {
+            System.out.println("Students in class " + studentsByClass);
         }else {
             System.out.println("class does not exists");
         }
-       studentUtils.studentsSortedByClass(studentMap);
-        studentUtils.averageStudentsPerClass(studentMap);
 
+        int numberOfStudentsInClass = studentUtils.studentsInClass(students,"4B");
+        System.out.println("number of students in class " + numberOfStudentsInClass);
 
+        Map<String, List<Student>> studentsSortedByClass= studentUtils.studentsSortedByClass(studentMap);
+        for(Map.Entry<String,List<Student>> entry : studentsSortedByClass.entrySet()){
+            System.out.println(entry.getKey() + entry.getValue() + "\n");
+        }
+
+        double averageStudentsPerClass = studentUtils.averageStudentsPerClass(studentMap);
+        System.out.println("Average students per class : " + averageStudentsPerClass);
+
+        List<Student> searchedStudents = studentUtils.searchStudentsBySexAndClass(students,"4B","F");
+        System.out.println(searchedStudents);
     }
 }
-
 class Student {
     private String studentId;
     private String name;
@@ -90,8 +98,6 @@ class Student {
 
 }
 class StudentUtils{
-    Student student = new Student();
-
     public int studentsInClass(List<Student> students, String classNumber) {
         int sum = 0;
         for (Student student : students) {
@@ -99,7 +105,6 @@ class StudentUtils{
                 sum++;
             }
         }
-        System.out.println("The number of students in class " + classNumber + " is: " + sum);
         return sum;
     }
     public List<Student> searchStudentsBySexAndClass(List<Student> students, String classNumber, String sex) {
@@ -107,7 +112,6 @@ class StudentUtils{
         for (Student student : students) {
             if (student.getStudentClassNumber().equals(classNumber) && student.getSex().equals(sex)) {
                 searchedStudents.add(student);
-                System.out.println(student);
             }
         }
         return searchedStudents;
@@ -130,9 +134,6 @@ class StudentUtils{
                 sortedStudents.put(entry.getValue().getStudentClassNumber(), sortingStudentsByClass(students, entry.getValue().getStudentClassNumber()));
             }
         }
-        for (Map.Entry<String, List<Student>> entry : sortedStudents.entrySet()) {
-            System.out.println("class: " + entry.getKey() + "\n" + " " + entry.getValue() + " ");
-        }
         return sortedStudents;
     }
 
@@ -151,17 +152,12 @@ class StudentUtils{
         String classNumber = "";
      for (Map.Entry<String, Student> entry : studentMap.entrySet()) {
          students++;
-         if(entry.getValue().getStudentClassNumber() != classNumber){
+         if (entry.getValue().getStudentClassNumber() != classNumber) {
              numbersOfClass++;
          }
          classNumber = entry.getValue().getStudentClassNumber();
      }
-
-        System.out.println(numbersOfClass);
-        System.out.println(students);
-
         average = students/numbersOfClass;
-        System.out.println(average);
         return average;
     }
 }
