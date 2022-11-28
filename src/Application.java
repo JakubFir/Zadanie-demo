@@ -5,8 +5,8 @@ public class Application {
         List<Student> students = new ArrayList<>();
         students.add(new Student("1", "jakub", "firlejczyk", "4A", 1, "M"));
         students.add(new Student("2", "Korneli", "Szymkowiak", "4A", 3, "M"));
-        students.add(new Student("3", "Joachim", "Piwowarczyk", "4A", 4, "M"));
-        students.add(new Student("4", "Laurencjusz", "Koza", "4B", 2, "M"));
+        students.add(new Student("3", "Joachim", "Piwowarczyk", "4C", 4, "M"));
+        students.add(new Student("4", "Laurencjusz", "Koza", "4D", 2, "M"));
         students.add(new Student("5", "Maria", "Sitek", "4B", 5, "F"));
         students.add(new Student("6", "Anastazja", "Zwoliński", "4B", 6, "F"));
 
@@ -92,7 +92,7 @@ class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return studentId == student.studentId && studentLogNumber == student.studentLogNumber && sex == student.sex && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(studentClassNumber, student.studentClassNumber);
+        return studentId.equals(student.studentId) && studentLogNumber == student.studentLogNumber && sex.equals(student.sex)  && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(studentClassNumber, student.studentClassNumber);
     }
 
 
@@ -152,7 +152,7 @@ class StudentUtils{
         String classNumber = "";
      for (Map.Entry<String, Student> entry : studentMap.entrySet()) {
          students++;
-         if (entry.getValue().getStudentClassNumber() != classNumber) {
+         if (!entry.getValue().getStudentClassNumber().equals(classNumber)) {
              numbersOfClass++;
          }
          classNumber = entry.getValue().getStudentClassNumber();
