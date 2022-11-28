@@ -94,8 +94,6 @@ class Student {
         Student student = (Student) o;
         return studentId.equals(student.studentId) && studentLogNumber == student.studentLogNumber && sex.equals(student.sex)  && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(studentClassNumber, student.studentClassNumber);
     }
-
-
 }
 class StudentUtils{
     public int studentsInClass(List<Student> students, String classNumber) {
