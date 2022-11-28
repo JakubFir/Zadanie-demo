@@ -54,30 +54,23 @@ class Student {
         this.studentLogNumber = studentLogNumber;
         this.sex = sex;
     }
-
     public Student() {
     }
-
     public String getStudentId() {
         return this.studentId;
     }
-
     public String getName() {
         return this.name;
     }
-
     public String getLastName() {
         return this.lastName;
     }
-
     public String getStudentClassNumber() {
         return this.studentClassNumber;
     }
-
     public int getStudentLogNumber() {
         return this.studentLogNumber;
     }
-
     public String getSex() {
         return this.sex;
     }
@@ -86,7 +79,6 @@ class Student {
     public String toString() {
         return "\n" + "Student Id: " + studentId + " " + name + " " + lastName + " " + studentClassNumber + " " + studentLogNumber + " " + sex;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
