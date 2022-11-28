@@ -126,7 +126,6 @@ class StudentUtils{
         }
         return sortedStudents;
     }
-
     public List<Student> getStudentsByClass(Map<String, Student> students, String classNumber) {
         List<Student> studentsInClass = new ArrayList<>();
         for (Map.Entry<String, Student> entry : students.entrySet()) {
