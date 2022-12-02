@@ -76,6 +76,11 @@ class Student {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(studentClassNumber);
+    }
+
+    @Override
     public String toString() {
         return "\n" + "Student Id: " + studentId + " " + name + " " + lastName + " " + studentClassNumber + " " + studentLogNumber + " " + sex;
     }
@@ -87,6 +92,7 @@ class Student {
         return studentId.equals(student.studentId) && studentLogNumber == student.studentLogNumber && sex.equals(student.sex)  && Objects.equals(name, student.name) && Objects.equals(lastName, student.lastName) && Objects.equals(studentClassNumber, student.studentClassNumber);
     }
 }
+
 class StudentUtils{
     public int studentsInClass(List<Student> students, String classNumber) {
         int sum = 0;
