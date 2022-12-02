@@ -79,7 +79,6 @@ class Student {
     public int hashCode() {
         return Objects.hash(studentClassNumber);
     }
-
     @Override
     public String toString() {
         return "\n" + "Student Id: " + studentId + " " + name + " " + lastName + " " + studentClassNumber + " " + studentLogNumber + " " + sex;
